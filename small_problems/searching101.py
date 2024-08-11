@@ -27,20 +27,11 @@
 
 tracking_list = []
 
-number = input('Enter the 1st number: ')
-tracking_list.append(number)
-
-number2 = input('Enter the 2nd number: ')
-tracking_list.append(number2)
-
-number3 = input('Enter the 3rd number: ')
-tracking_list.append(number3)
-
-number4 = input('Enter the 4th number: ')
-tracking_list.append(number4)
-
-number5 = input('Enter the 5th number: ')
-tracking_list.append(number5)
+tracking_list.append(input('Enter the 1st number: '))
+tracking_list.append(input('Enter the 2nd number: '))
+tracking_list.append(input('Enter the 3rd number: '))
+tracking_list.append(input('Enter the 4th number: '))
+tracking_list.append(input('Enter the 5th number: '))
 
 last_num = input('Enter the last number: ')
 
