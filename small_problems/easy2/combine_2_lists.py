@@ -31,15 +31,23 @@ def interleave(list1, list2):
     #     idx += 1
     
     # return new_list
+#--------------------------------
+    # result = []
 
-    result = []
-
-    for idx in range(len(list1)):
-        result.extend([list1[idx], list2[idx]])
+    # for idx in range(len(list1)):
+    #     result.extend([list1[idx], list2[idx]])
     
-    return result
+    # return result
+#---------------------------------
 
+    zipped_lists = zip(list1, list2)
+    new_list = []
 
+    for pair in zipped_lists:
+        for item in pair:
+            new_list.append(item)
+
+    return new_list
 
 list1 = [1, 2, 3]
 list2 = ['a', 'b', 'c']
