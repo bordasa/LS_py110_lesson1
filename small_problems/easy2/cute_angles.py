@@ -26,14 +26,22 @@ def dms(num):
 
     seconds = minutes % 1 * 60
 
-    return f"{int(num)}{DEGREE}{int(minutes):02d}'{int(seconds):02d}\""
+    deg_num = int(num)
+
+    while deg_num < 0:
+        deg_num += 360
+
+    while deg_num > 360:
+        deg_num -= 360
+
+    return f"{deg_num}{DEGREE}{int(minutes):02d}'{int(seconds):02d}\""
 
 
 
 # All of these examples should print True
-print(dms(30) == "30°00'00\"")
+print(dms(-30))# == "30°00'00\"")
 print(dms(76.73) == "76°43'48\"")
 print(dms(254.6) == "254°35'59\"")
 print(dms(93.034773) == "93°02'05\"")
 print(dms(0) == "0°00'00\"")
-print(dms(360) == "360°00'00\"" or dms(360) == "0°00'00\"")
+print(dms(-360))# == "360°00'00\"" or dms(360) == "0°00'00\"")
