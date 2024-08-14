@@ -22,11 +22,14 @@ def count_occurrences(list):
 
     for item in list:
         item = item.casefold()
+
+        ## My original implementation
         # if item not in count_dict:
         #     count_dict[item] = 0
         
         # count_dict[item] += 1
 
+        ##Launch School's way
         count_dict[item] = count_dict.get(item, 0) + 1
     
     for key, value in count_dict.items():
