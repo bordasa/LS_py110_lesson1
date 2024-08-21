@@ -100,36 +100,76 @@
 
 #Practice Problem 8
 
-dict1 = {
-    'grape': {
-        'type': 'fruit',
-        'colors': ['red', 'green'],
-        'size': 'small',
-    },
-    'carrot': {
-        'type': 'vegetable',
-        'colors': ['orange'],
-        'size': 'medium',
-    },
-    'apricot': {
-        'type': 'fruit',
-        'colors': ['orange'],
-        'size': 'medium',
-    },
-    'marrow': {
-        'type': 'vegetable',
-        'colors': ['green'],
-        'size': 'large',
-    },
-}
+# dict1 = {
+#     'grape': {
+#         'type': 'fruit',
+#         'colors': ['red', 'green'],
+#         'size': 'small',
+#     },
+#     'carrot': {
+#         'type': 'vegetable',
+#         'colors': ['orange'],
+#         'size': 'medium',
+#     },
+#     'apricot': {
+#         'type': 'fruit',
+#         'colors': ['orange'],
+#         'size': 'medium',
+#     },
+#     'marrow': {
+#         'type': 'vegetable',
+#         'colors': ['green'],
+#         'size': 'large',
+#     },
+# }
 
-result_list = []
+# result_list = []
 
-for food_dict in dict1.values():
-    if food_dict['type'] == 'fruit':
-        color_list = [color.capitalize() for color in food_dict['colors']]
-        result_list.append(color_list)
-    else:
-        result_list.append(food_dict['size'].upper())
+# for food_dict in dict1.values():
+#     if food_dict['type'] == 'fruit':
+#         color_list = [color.capitalize() for color in food_dict['colors']]
+#         result_list.append(color_list)
+#     else:
+#         result_list.append(food_dict['size'].upper())
 
-print(result_list)
+# print(result_list)
+
+# Practice Problem 9
+# lst = [
+#     {'a': [1, 2, 3]},
+#     {'b': [2, 4, 6], 'c': [3, 6], 'd': [4]},
+#     {'e': [8], 'f': [6, 10]},
+# ]
+
+# def is_all_evens(my_dict):
+#     for sublist in my_dict.values():
+#         for num in sublist:
+#             if num % 2 == 1:
+#                 return False
+    
+#     return True
+
+# new_lst = [subdict for subdict in lst if is_all_evens(subdict)]
+# print(new_lst)
+
+# Practice Problem 10
+import random
+
+def uuid_part(num_chars):
+    hex_chars = '0123456789abcdef'
+    part = ''
+
+    for _ in range(num_chars):
+        part += random.choice(hex_chars)
+    
+    return part
+
+def create_uuid():
+    pattern = [8, 4, 4, 4, 12]
+
+    uuid_parts_list = [uuid_part(num) for num in pattern]
+
+    return '-'.join(uuid_parts_list)
+
+print(create_uuid())
+
