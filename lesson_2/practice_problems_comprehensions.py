@@ -98,3 +98,38 @@
 # new_lst = [extract_multiples_of_3(sublist) for sublist in lst]
 # print(new_lst)
 
+#Practice Problem 8
+
+dict1 = {
+    'grape': {
+        'type': 'fruit',
+        'colors': ['red', 'green'],
+        'size': 'small',
+    },
+    'carrot': {
+        'type': 'vegetable',
+        'colors': ['orange'],
+        'size': 'medium',
+    },
+    'apricot': {
+        'type': 'fruit',
+        'colors': ['orange'],
+        'size': 'medium',
+    },
+    'marrow': {
+        'type': 'vegetable',
+        'colors': ['green'],
+        'size': 'large',
+    },
+}
+
+result_list = []
+
+for food_dict in dict1.values():
+    if food_dict['type'] == 'fruit':
+        color_list = [color.capitalize() for color in food_dict['colors']]
+        result_list.append(color_list)
+    else:
+        result_list.append(food_dict['size'].upper())
+
+print(result_list)
