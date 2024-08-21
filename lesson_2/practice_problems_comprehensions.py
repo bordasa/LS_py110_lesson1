@@ -58,8 +58,8 @@
 # print(new_dict)
 
 # Practice Problem 5
-lst = [[1, 6, 7], [1, 5, 3], [1, 8, 3]]
-
+#lst = [[1, 6, 7], [1, 5, 3], [1, 8, 3]]
+##____________________________
 # tracking_list = []
 
 # for sublist in lst:
@@ -73,10 +73,18 @@ lst = [[1, 6, 7], [1, 5, 3], [1, 8, 3]]
 # sorted_by_sum_of_odds = sorted(tracking_list)
 # final = [item[1] for item in sorted_by_sum_of_odds]
 # print(final)
+##_____________________________
+# def sum_of_odds(list1):
+#     return sum([num for num in list1 if num % 2 == 1])
 
-def sum_of_odds(list1):
-    return sum([num for num in list1 if num % 2 == 1])
+# sorted_lst = sorted(lst, key = sum_of_odds)
+# print(sorted_lst)
 
-sorted_lst = sorted(lst, key = sum_of_odds)
-print(sorted_lst)
+#Practice Problem 6
+lst = [{'a': 1}, {'b': 2, 'c': 3}, {'d': 4, 'e': 5, 'f': 6}]
 
+def incremenet_values(my_dict):
+    return {key: value + 1 for key, value in my_dict.items()}
+
+new_lst = [incremenet_values(inner_dict) for inner_dict in lst]
+print(new_lst)
