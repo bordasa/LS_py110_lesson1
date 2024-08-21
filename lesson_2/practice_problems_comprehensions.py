@@ -39,4 +39,12 @@
 # new_lst = [sorted(inner_lst) for inner_lst in lst]
 # print(new_lst)
 
-## Practice Problem 3
+# ## Practice Problem 3
+
+# lst = [['b', 'c', 'a'], [2, 11, -3], ['blue', 'black', 'green']]
+
+# new_lst = [sorted(inner_lst, key=str) for inner_lst in lst]
+# print(new_lst)
+
+#Practice Problem 4
+
