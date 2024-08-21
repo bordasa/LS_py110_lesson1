@@ -152,24 +152,50 @@
 # new_lst = [subdict for subdict in lst if is_all_evens(subdict)]
 # print(new_lst)
 
-# Practice Problem 10
-import random
+# # Practice Problem 10
+# import random
 
-def uuid_part(num_chars):
-    hex_chars = '0123456789abcdef'
-    part = ''
+# def uuid_part(num_chars):
+#     hex_chars = '0123456789abcdef'
+#     part = ''
 
-    for _ in range(num_chars):
-        part += random.choice(hex_chars)
+#     for _ in range(num_chars):
+#         part += random.choice(hex_chars)
     
-    return part
+#     return part
 
-def create_uuid():
-    pattern = [8, 4, 4, 4, 12]
+# def create_uuid():
+#     pattern = [8, 4, 4, 4, 12]
 
-    uuid_parts_list = [uuid_part(num) for num in pattern]
+#     uuid_parts_list = [uuid_part(num) for num in pattern]
 
-    return '-'.join(uuid_parts_list)
+#     return '-'.join(uuid_parts_list)
 
-print(create_uuid())
+# print(create_uuid())
 
+#Practice Problem 11
+dict1 = {
+    'first':  ['the', 'quick'],
+    'second': ['brown', 'fox'],
+    'third':  ['jumped'],
+    'fourth': ['over', 'the', 'lazy', 'dog'],
+}
+
+# list_of_vowels = [letter for sublist in dict1.values()
+#                         for word in sublist
+#                         for letter in word if letter in 'aeiou']
+
+list_of_vowels = [letter for key in dict1
+                        for word in dict1[key]
+                        for letter in word if letter in 'aeiou']
+
+# for sublist in dict1.values():
+#     for word in sublist:
+#         for letter in word:
+#             if letter in 'aeiou':
+#                 list_of_vowels.append(letter)
+
+
+
+print(list_of_vowels)
+# ['e', 'u', 'i', 'o', 'o', 'u', 'e', 'o', 'e', 'e', 'a', 'o']
