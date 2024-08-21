@@ -56,3 +56,27 @@
 
 # new_dict = {sublist[0]: sublist[1] for sublist in lst}
 # print(new_dict)
+
+# Practice Problem 5
+lst = [[1, 6, 7], [1, 5, 3], [1, 8, 3]]
+
+# tracking_list = []
+
+# for sublist in lst:
+#     sum = 0
+#     for num in sublist:
+#         if num % 2 == 1:
+#             sum += num
+    
+#     tracking_list.append([sum, sublist])
+
+# sorted_by_sum_of_odds = sorted(tracking_list)
+# final = [item[1] for item in sorted_by_sum_of_odds]
+# print(final)
+
+def sum_of_odds(list1):
+    return sum([num for num in list1 if num % 2 == 1])
+
+sorted_lst = sorted(lst, key = sum_of_odds)
+print(sorted_lst)
+
