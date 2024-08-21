@@ -81,10 +81,20 @@
 # print(sorted_lst)
 
 #Practice Problem 6
-lst = [{'a': 1}, {'b': 2, 'c': 3}, {'d': 4, 'e': 5, 'f': 6}]
+# lst = [{'a': 1}, {'b': 2, 'c': 3}, {'d': 4, 'e': 5, 'f': 6}]
 
-def incremenet_values(my_dict):
-    return {key: value + 1 for key, value in my_dict.items()}
+# def incremenet_values(my_dict):
+#     return {key: value + 1 for key, value in my_dict.items()}
 
-new_lst = [incremenet_values(inner_dict) for inner_dict in lst]
-print(new_lst)
+# new_lst = [incremenet_values(inner_dict) for inner_dict in lst]
+# print(new_lst)
+
+# #Practice Problem 7
+# lst = [[2], [3, 5, 7, 12], [9], [11, 15, 18]]
+
+# def extract_multiples_of_3(my_list):
+#     return [num for num in my_list if num % 3 == 0]
+
+# new_lst = [extract_multiples_of_3(sublist) for sublist in lst]
+# print(new_lst)
+
