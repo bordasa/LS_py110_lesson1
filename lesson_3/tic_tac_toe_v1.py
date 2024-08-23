@@ -97,7 +97,7 @@ def did_someone_win(turn_list):
     return False
 
 def is_board_full(turn_list1, turn_list2):
-    if len(turn_list1) + len(turn_list2) == 9:
+    if len(turn_list1) + len(turn_list2) == ROWS * COLUMNS:
         return True
     else:
         return False
