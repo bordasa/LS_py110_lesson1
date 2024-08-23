@@ -4,6 +4,8 @@ PLAY = True
 GAME_END = False
 ROWS = 3
 COLUMNS = 3
+PLAYER_MARKER = 'X'
+COMPUTER_MARKER = 'O'
 
 def title_art():
     print("=======================")
@@ -27,6 +29,7 @@ def make_board_dict(rows, columns):
 
 def display_board(board_dict):
     title_art()
+    print(f"You are {PLAYER_MARKER}. Computer is {COMPUTER_MARKER}.")
     print()
 
     top_row = " "
@@ -45,7 +48,7 @@ def player_turn_input(board_dict):
     while not VALID_INPUT:
         print("Where would you like to mark the board?")
         print("Input your answer as Row then Column")
-        player_input = input("Example: 12 for R1 C2\n")
+        player_input = input("Example: 12 for Row 1 Column 2\n")
 
         if player_input and player_input[0].isnumeric():
             if int(player_input[0]) in range(ROWS):
