@@ -25,7 +25,7 @@ def make_ttt_board_dict(rows, columns):
 
     return board_dict
 
-def print_board(board_dict):
+def display_board(board_dict):
     title_art()
     print()
 
@@ -47,7 +47,7 @@ def player_turn_input(board_dict):
         print("Input your answer as Row then Column")
         player_input = input("Example: 12 for R1 C2\n")
 
-        if player_input[0].isnumeric():
+        if player_input and player_input[0].isnumeric():
             if int(player_input[0]) in range(ROWS):
                 row_input = int(player_input[0])
             
@@ -113,15 +113,13 @@ while PLAY == True:
     while GAME_END == False:
         clear_screen()
 
-        print_board(game_board_dict)
+        display_board(game_board_dict)
         
         player_turn_input(game_board_dict)
 
         clear_screen()
 
-        print_board(game_board_dict)
-
-        print(f"Player Turns: {player_turns_list}")
+        display_board(game_board_dict)
 
         if did_someone_win(player_turns_list):
             print('Player wins!')
@@ -137,7 +135,7 @@ while PLAY == True:
 
         clear_screen()
 
-        print_board(game_board_dict)
+        display_board(game_board_dict)
 
         if did_someone_win(computer_turns_list):
             print('Computer wins!')
@@ -148,5 +146,5 @@ while PLAY == True:
     if play_again[0].casefold() == "y":
         GAME_END = False
     elif play_again[0].casefold() == "n":
-        input("Thank you for playing!\n Press Enter to close the game.")
+        input("Thank you for playing!\nPress Enter to close the game.")
         PLAY = False
