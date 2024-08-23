@@ -13,7 +13,7 @@ def title_art():
 def clear_screen():
     os.system('cls||clear')
 
-def make_ttt_board_dict(rows, columns):
+def make_board_dict(rows, columns):
     board_dict = {}
 
     for row in range(rows):
@@ -106,7 +106,7 @@ def is_board_full(turn_list1, turn_list2):
 ####################################################
 
 while PLAY == True:
-    game_board_dict = make_ttt_board_dict(ROWS, COLUMNS)
+    game_board_dict = make_board_dict(ROWS, COLUMNS)
     player_turns_list = set()
     computer_turns_list = set()
 
