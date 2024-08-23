@@ -148,6 +148,6 @@ while PLAY == True:
     play_again = input("Would you like to play again?\n")
     if play_again[0].casefold() == "y":
         GAME_END = False
-    elif play_again[0].casefold() == "n":
+    else:
         input("Thank you for playing!\nPress Enter to close the game.")
         PLAY = False
