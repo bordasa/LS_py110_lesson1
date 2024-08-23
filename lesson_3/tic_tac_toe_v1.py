@@ -1,7 +1,17 @@
-import random
+import random, os
 
+PLAY = True
+GAME_END = False
 ROWS = 3
 COLUMNS = 3
+
+def title_art():
+    print("=======================")
+    print("===   TIC TAC TOE   ===")
+    print("=======================")
+
+def clear_screen():
+    os.system('cls||clear')
 
 def make_ttt_board_dict(rows, columns):
     board_dict = {}
@@ -16,7 +26,9 @@ def make_ttt_board_dict(rows, columns):
     return board_dict
 
 def print_board(board_dict):
-    
+    title_art()
+    print()
+
     top_row = " "
     for col in range(COLUMNS):
         top_row += f"   {col}   "
@@ -25,22 +37,36 @@ def print_board(board_dict):
 
     for row in board_dict.keys():
         print(f"{row}{board_dict[row]}")
+    
+    print()
 
-def collect_player_turn_input():
-    while True:
-        print("Where would you like to mark the board?\n")
-        print("Input your answer as Row then Column\n")
+def player_turn_input(board_dict):
+    VALID_INPUT = False
+    while not VALID_INPUT:
+        print("Where would you like to mark the board?")
+        print("Input your answer as Row then Column")
         player_input = input("Example: 12 for R1 C2\n")
 
-        if player_input[0] in range(ROWS):
-            row_input = player_input[0]
+        if player_input[0].isnumeric():
+            if int(player_input[0]) in range(ROWS):
+                row_input = int(player_input[0])
             
-            for char in  player_input[1:]:
-                if char in range(COLUMNS):
-                    column_input = char
-                    break
+                for char in player_input[1:]:
+                    if char.isnumeric() and int(char) in range(COLUMNS):
+                        column_input = int(char)
+            
+                    if board_dict[row_input][column_input] == [' ']:
+                        VALID_INPUT = True
+                    else:
+                        print("Invalid input.")
+                        input("That space is taken, please try again.")
+        
+        else:
+            print("Invalid input.")
+            input("Please input a square in the format of ROW COLUMN.")
     
-    return (row_input, column_input)
+    board_dict[row_input][column_input] = ["X"]
+    player_turns_list.add((row_input, column_input))
 
 def computer_turn(board_dict):
     open_spaces = []
@@ -52,18 +78,75 @@ def computer_turn(board_dict):
 
     row_choice, column_choice = random.choice(open_spaces)
 
-    update_board(board_dict, row_choice, column_choice, player = False)
+    board_dict[row_choice][column_choice] = ["O"]
+    computer_turns_list.add((row_choice, column_choice))
 
-def update_board(board_dict, row_input, column_input, player):
-    if player:
-        board_dict[row_input][column_input] = ["X"]
+def did_someone_win(turn_list):
+    winning_options = [{(0, 0), (0, 1), (0, 2)},
+                       {(1, 0), (1, 1), (1, 2)},
+                       {(2, 0), (2, 1), (2, 2)},
+                       {(0, 0), (1, 0), (2, 0)},
+                       {(0, 1), (1, 1), (2, 1)},
+                       {(0, 2), (1, 2), (2, 2)},
+                       {(0, 0), (1, 1), (2, 2)},
+                       {(0, 2), (1, 1), (2, 0)}]
+    
+    for sublist in winning_options:
+        if sublist.issubset(turn_list):
+            return True
+    return False
+
+def is_board_full(turn_list1, turn_list2):
+    if len(turn_list1) + len(turn_list2) == 9:
+        return True
     else:
-        board_dict[row_input][column_input] = ["O"]
+        return False
+####
+####################################################
+####################################################
 
-game_board_dict = make_ttt_board_dict(ROWS, COLUMNS)
+while PLAY == True:
+    game_board_dict = make_ttt_board_dict(ROWS, COLUMNS)
+    player_turns_list = set()
+    computer_turns_list = set()
 
-print_board(game_board_dict)
+    while GAME_END == False:
+        clear_screen()
 
-computer_turn(game_board_dict)
+        print_board(game_board_dict)
+        
+        player_turn_input(game_board_dict)
 
-print_board(game_board_dict)
+        clear_screen()
+
+        print_board(game_board_dict)
+
+        print(f"Player Turns: {player_turns_list}")
+
+        if did_someone_win(player_turns_list):
+            print('Player wins!')
+            GAME_END = True
+            break
+
+        elif is_board_full(player_turns_list, computer_turns_list):
+            print("It's a tie!")
+            GAME_END = True
+            break
+
+        computer_turn(game_board_dict)
+
+        clear_screen()
+
+        print_board(game_board_dict)
+
+        if did_someone_win(computer_turns_list):
+            print('Computer wins!')
+            GAME_END = True
+            break
+        
+    play_again = input("Would you like to play again?\n")
+    if play_again[0].casefold() == "y":
+        GAME_END = False
+    elif play_again[0].casefold() == "n":
+        input("Thank you for playing!\n Press Enter to close the game.")
+        PLAY = False
