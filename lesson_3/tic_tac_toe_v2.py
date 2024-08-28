@@ -85,7 +85,25 @@ def player_turn(board_dict):
     board_dict[int(player_input)] = PLAYER_MARKER
 
 def computer_turn(board_dict):
-    comp_choice = random.choice(find_empty_squares(board_dict))
+    comp_choice = None
+
+    if board_dict[5] == EMPTY_MARKER:
+        comp_choice = 5
+    
+    elif did_someone_win(board_dict, PLAYER_MARKER, 2)[0] == PLAYER_MARKER:
+        for sublist in did_someone_win(board_dict, PLAYER_MARKER, 2)[1]:
+            for square in sublist:
+                if board_dict[square] is EMPTY_MARKER:
+                    comp_choice = square
+    
+    if did_someone_win(board_dict, COMPUTER_MARKER, 2)[0] == COMPUTER_MARKER:
+        for sublist in did_someone_win(board_dict, COMPUTER_MARKER, 2)[1]:
+            for square in sublist:
+                if board_dict[square] is EMPTY_MARKER:
+                    comp_choice = square
+
+    if comp_choice is None:
+        comp_choice = random.choice(find_empty_squares(board_dict))
 
     board_dict[comp_choice] = COMPUTER_MARKER
 
@@ -93,11 +111,14 @@ def computer_turn(board_dict):
 def is_board_full(board_dict):
     return len(find_empty_squares(board_dict)) == 0
 
-def did_someone_win(board_dict, marker):
+def did_someone_win(board_dict, marker, num_in_row):
     winning_options = [
                         (1, 2, 3), (4, 5, 6), (7, 8, 9),
                         (1, 4, 7), (2, 5, 8), (3, 6, 9),
                         (1, 5, 9), (3, 5, 7)]
+
+    winner = None
+    winning_lines = []
 
     for sublist in winning_options:
         tracker = 0
@@ -105,10 +126,11 @@ def did_someone_win(board_dict, marker):
             if board_dict[square] == marker:
                 tracker += 1
             
-            if tracker == NUM_TO_WIN:
-                return marker
+            if tracker == num_in_row:
+                winner = marker
+                winning_lines.append(sublist)
     
-    return None
+    return (winner, winning_lines)
 
 
 while PLAY == True:
@@ -122,7 +144,7 @@ while PLAY == True:
 
         display_game_screen(board_dict)
 
-        if did_someone_win(board_dict, PLAYER_MARKER) == PLAYER_MARKER:
+        if did_someone_win(board_dict, PLAYER_MARKER, NUM_TO_WIN)[0] == PLAYER_MARKER:
             print("You win!")
             GAME_END = True
             break
@@ -136,7 +158,7 @@ while PLAY == True:
 
         display_game_screen(board_dict)
 
-        if did_someone_win(board_dict, COMPUTER_MARKER) == COMPUTER_MARKER:
+        if did_someone_win(board_dict, COMPUTER_MARKER, NUM_TO_WIN)[0] == COMPUTER_MARKER:
             print("Computer wins!")
             GAME_END = True
             break
