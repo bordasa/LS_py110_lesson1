@@ -1,12 +1,13 @@
 import random, os
 
 PLAY = True
-GAME_END = False
+# GAME_END = False
 
 PLAYER_MARKER = "X"
 COMPUTER_MARKER = "O"
 EMPTY_MARKER = " "
 NUM_TO_WIN = 3
+GAMES_TO_WIN = 3
 
 def title_art():
     print("===================================")
@@ -37,12 +38,17 @@ def display_board(board_dict):
     print("           |           |")
     print()
 
-def display_game_screen(board_dict):
+def display_game_screen(board_dict, player_score = 0, computer_score = 0):
     clear_screen()
     title_art()
-    print(f"Player Marker: {PLAYER_MARKER}")
-    print(f"Computer Marker: {COMPUTER_MARKER}")
+    print(f"Player Marker: {PLAYER_MARKER} / Computer Marker: {COMPUTER_MARKER}")
+    display_score(player_score, computer_score)
+    #print(f"Computer Marker: {COMPUTER_MARKER}")
+    # print(f"Computer Score: {computer_score}")
     display_board(board_dict)
+
+def display_score(player_score, computer_score):
+    print(f"Player Score: {player_score} / Computer Score: {computer_score}")
 
 def create_fresh_board():
     fresh_board_dict = {}
@@ -107,7 +113,6 @@ def computer_turn(board_dict):
 
     board_dict[comp_choice] = COMPUTER_MARKER
 
-
 def is_board_full(board_dict):
     return len(find_empty_squares(board_dict)) == 0
 
@@ -132,43 +137,58 @@ def did_someone_win(board_dict, marker, num_in_row):
     
     return (winner, winning_lines)
 
-
 while PLAY == True:
-    board_dict = create_fresh_board()
+    player_score = 0
+    computer_score = 0
 
-    while GAME_END == False:
-
-        display_game_screen(board_dict)
-
-        player_turn(board_dict)
-
-        display_game_screen(board_dict)
-
-        if did_someone_win(board_dict, PLAYER_MARKER, NUM_TO_WIN)[0] == PLAYER_MARKER:
-            print("You win!")
-            GAME_END = True
-            break
-
-        if is_board_full(board_dict):
-            print("This game is a Tie!")
-            GAME_END = True
-            break
-
-        computer_turn(board_dict)
-
-        display_game_screen(board_dict)
-
-        if did_someone_win(board_dict, COMPUTER_MARKER, NUM_TO_WIN)[0] == COMPUTER_MARKER:
-            print("Computer wins!")
-            GAME_END = True
-            break
-
-        if is_board_full(board_dict):
-            print("This game is a Tie!")
-            GAME_END = True
-            break
-    
     while True:
+        board_dict = create_fresh_board()
+        GAME_END = False
+
+        if player_score == GAMES_TO_WIN or computer_score == GAMES_TO_WIN:
+            break
+
+        while GAME_END == False:
+
+            display_game_screen(board_dict, player_score, computer_score)
+
+            player_turn(board_dict)
+
+            display_game_screen(board_dict, player_score, computer_score)
+
+            if did_someone_win(board_dict, PLAYER_MARKER, NUM_TO_WIN)[0] == PLAYER_MARKER:
+                input("You win!")
+                player_score += 1
+                GAME_END = True
+                break
+
+            if is_board_full(board_dict):
+                input("This game is a Tie!")
+                GAME_END = True
+                break
+
+            computer_turn(board_dict)
+
+            display_game_screen(board_dict, player_score, computer_score)
+
+            if did_someone_win(board_dict, COMPUTER_MARKER, NUM_TO_WIN)[0] == COMPUTER_MARKER:
+                input("Computer wins!")
+                computer_score += 1
+                GAME_END = True
+                break
+
+            if is_board_full(board_dict):
+                input("This game is a Tie!")
+                GAME_END = True
+                break
+        
+    while True:
+        clear_screen()
+        title_art()
+        print()
+        display_score(player_score, computer_score)
+        print()
+
         print("Would you like to play again? (yes/no)")
         play_again = input()
 
