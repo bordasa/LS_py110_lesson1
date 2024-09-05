@@ -1,13 +1,11 @@
 import random, os
 
 PLAY = True
-# GAME_END = False
 
 PLAYER_MARKER = "X"
 COMPUTER_MARKER = "O"
 EMPTY_MARKER = " "
-NUM_TO_WIN = 3
-GAMES_TO_WIN = 3
+NUM_TO_WIN = 3 # In case I want to add the functionality for a bigger board
 
 def title_art():
     print("===================================")
@@ -137,9 +135,54 @@ def did_someone_win(board_dict, marker, num_in_row):
     
     return (winner, winning_lines)
 
+def how_many_wins():
+    while True:
+        clear_screen()
+        title_art()
+        print()
+
+        print("How many wins do you want to play to?")
+        wins = input()
+
+        if wins.isnumeric():
+            return int(wins)
+        
+        else:
+            print("Invalid input. Please enter an integer number.")
+
+def who_goes_first():
+    while True:
+        clear_screen()
+        title_art()
+        print()
+
+        print("Who will go first?")
+        print("- 1: Player")
+        print("- 2: Computer")
+        who_first = input()
+
+        if who_first == '1':
+            return "player"
+        
+        elif who_first == '2':
+            return "computer"
+        
+        else:
+            print("Invalid input. Please type '1' or '2'.")
+
+def switch_turns(who_just_went):
+    if who_just_went == "player":
+        return "computer"
+    else:
+        return "player"
+
 while PLAY == True:
     player_score = 0
     computer_score = 0
+
+    GAMES_TO_WIN = how_many_wins()
+
+    current_turn = who_goes_first()
 
     while True:
         board_dict = create_fresh_board()
@@ -152,7 +195,11 @@ while PLAY == True:
 
             display_game_screen(board_dict, player_score, computer_score)
 
-            player_turn(board_dict)
+            if current_turn == "player":
+                player_turn(board_dict)
+            
+            else:
+                computer_turn(board_dict)
 
             display_game_screen(board_dict, player_score, computer_score)
 
@@ -161,15 +208,6 @@ while PLAY == True:
                 player_score += 1
                 GAME_END = True
                 break
-
-            if is_board_full(board_dict):
-                input("This game is a Tie!")
-                GAME_END = True
-                break
-
-            computer_turn(board_dict)
-
-            display_game_screen(board_dict, player_score, computer_score)
 
             if did_someone_win(board_dict, COMPUTER_MARKER, NUM_TO_WIN)[0] == COMPUTER_MARKER:
                 input("Computer wins!")
@@ -181,6 +219,8 @@ while PLAY == True:
                 input("This game is a Tie!")
                 GAME_END = True
                 break
+
+            current_turn = switch_turns(current_turn)
         
     while True:
         clear_screen()
