@@ -9,10 +9,13 @@ def join_or(item_list, delimiter = ', ', connector = 'or'):
 
     if len(item_list) == 0:
         return ""
+
     elif len(item_list) == 1:
         return item_list[0]
+
     elif len(item_list) == 2:
         return f"{item_list[0]} {connector} {item_list[1]}"
+
     else:
         return f"{delimiter}".join(item_list[:-1]) + f"{delimiter}{connector} {item_list[-1]}"
 
@@ -25,11 +28,11 @@ def build_deck():
                         }
     suits = ['clubs', 'diamonds', 'hearts', 'spades']
     deck = []
-    
+
     for name, value in card_values_dict.items():
         for suit in suits:
             deck.append((name, value, suit))
-    
+
     return deck
 
 def shuffle(deck):
@@ -50,7 +53,7 @@ def declare_player_cards(p_hand):
     total = calc_total(p_hand)
 
     card_names = [card[0].capitalize() for card in p_hand]
-    
+
     print(f"You have: {join_or(card_names, ', ', 'and')}.")
     print(f"Your current total is {total}.")
     print()
@@ -59,7 +62,7 @@ def declare_dealer_cards(d_hand):
     total = calc_total(d_hand)
 
     card_names = [card[0].capitalize() for card in d_hand]
-    
+
     print(f"Dealer has: {join_or(card_names, ', ', 'and')}.")
     print(f"Dealer's total is {total}.")
     print()
@@ -85,7 +88,7 @@ def declare_dealer_cards(d_hand):
 #         case 'diamonds':
 #             print("|  :/\:  |")
 #             print("|  :\/:  |")
-        
+
 #         case 'hearts':
 #             print("|  (\/)  |")
 #             print("|  :\/:  |")
@@ -93,14 +96,14 @@ def declare_dealer_cards(d_hand):
 #         case 'clubs':
 #             print("|  :():  |")
 #             print("|  ()()  |")
-        
+
 #         case 'spades':
 #             print("|  :/\:  |")
 #             print("|  (__)  |")
 
 #     if card_num == 10:
 #         print(f"|  '--'{card_num}|")
-    
+
 #     else:
 #         print(f"|  '--' {card_num}|")
 
@@ -120,7 +123,7 @@ def calc_total(p_hand):
 def player_turn(p_hand, deck):
 
     while True:
-        clear_screen()
+        # clear_screen()
         current_total = calc_total(p_hand)
 
         declare_player_cards(p_hand)
@@ -134,16 +137,17 @@ def player_turn(p_hand, deck):
             if player_decision == '1':
                 # clear_screen()
                 print("You chose to Hit.")
+                print()
                 p_hand.append(deck.pop())
 
                 current_total = calc_total(p_hand)
                 declare_player_cards(p_hand)
-            
+
             elif player_decision == '2':
                 print("You chose to stay!")
                 input()
                 return p_hand, current_total
-            
+
             else:
                 print("Invalid option. Please input 1 or 2.")
 
@@ -151,15 +155,16 @@ def player_turn(p_hand, deck):
             print("You have 21!")
             input()
             return p_hand, current_total
-        
+
         else:
             print("You have busted!")
             input()
             return p_hand, current_total
-    
+
 def dealer_turn(d_hand, deck):
     dealer_total = calc_total(d_hand)
     declare_dealer_cards(d_hand)
+    input("Press <Enter> to continue.")
 
     while dealer_total < 17:
         clear_screen()
@@ -168,43 +173,77 @@ def dealer_turn(d_hand, deck):
         dealer_total = calc_total(d_hand)
         declare_dealer_cards(d_hand)
 
-    if dealer_total == 21:
-        print("Dealer has 21")
-        input()
-    
-    elif dealer_total < 21:
+    # if dealer_total == 21:
+    #     print("Dealer has 21.")
+    #     input()
+
+    if dealer_total <= 21:
         print("Dealer stays.")
         input()
-    
+
     else:
         print("Dealer has busted!")
         input()
-    
+
     return d_hand, dealer_total
 
 def declare_winner(player_total, dealer_total):
+    print("------------------------")
+    print(f"Your total is {player_total}.")
+    print(f"Dealer's total is {dealer_total}.")
+    print("-------------------------")
+    print()
+
     if dealer_total > 21 or player_total > dealer_total:
         print("You win!")
-    
+
+    elif dealer_total == player_total:
+        print("Its a tie!")
+
     else:
         print("Dealer wins!")
 
 ###
+PLAY = True
 clear_screen()
-deck = build_deck()
+print("Welcome to Twenty-One!")
+input("Press <Enter> to begin.")
+print()
 
-shuffle(deck)
+while PLAY == True:
+    clear_screen()
 
-player_cards, dealer_cards = deal_cards(deck)
+    deck = build_deck()
 
-show_dealer_faceup_card(dealer_cards)
+    shuffle(deck)
 
-player_cards, player_total = player_turn(player_cards, deck)
+    player_cards, dealer_cards = deal_cards(deck)
 
-if player_total >= 21:
-    print("Dealer wins.")
+    show_dealer_faceup_card(dealer_cards)
 
-else:
-    dealer_cards, dealer_total = dealer_turn(dealer_cards, deck)
+    player_cards, player_total = player_turn(player_cards, deck)
 
-    declare_winner(player_total, dealer_total)
+    if player_total > 21:
+        print("Dealer wins.") #Don't need Dealer to take turns.
+
+    else:
+        dealer_cards, dealer_total = dealer_turn(dealer_cards, deck)
+
+        declare_winner(player_total, dealer_total)
+
+    while True:
+        print()
+
+        print("Would you like to play again?")
+        print(" -1: Yes")
+        print(" -2: No")
+        play_again = input()
+
+        if play_again == '1':
+            break
+        elif play_again == '2':
+            print("Thanks for playing!")
+            PLAY = False
+            break
+        else:
+            print("Invalid input. Please select 1 or 2.")
