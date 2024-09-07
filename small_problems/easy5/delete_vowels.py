@@ -1,17 +1,27 @@
-def remove_vowels(my_list):
+def clean_up(word):
     vowels = 'aeiou'
-    no_vowels_list = []
 
-    for string in my_list:
-        new_string = ''
+    clean_words = [ltr for ltr in word if ltr.casefold() not in vowels]
 
-        for letter in string:
-            if letter.casefold() not in vowels:
-                new_string += letter
+    return ''.join(clean_words)
+
+def remove_vowels(my_list):
+    return [clean_up(word) for word in my_list]
+
+# def remove_vowels(my_list):
+    # vowels = 'aeiou'
+    # no_vowels_list = []
+
+    # for string in my_list:
+    #     new_string = ''
+
+    #     for letter in string:
+    #         if letter.casefold() not in vowels:
+    #             new_string += letter
         
-        no_vowels_list.append(new_string)
+    #     no_vowels_list.append(new_string)
     
-    return no_vowels_list
+    # return no_vowels_list
 
 # All of these examples should print True
 original = ['abcdefghijklmnopqrstuvwxyz']
