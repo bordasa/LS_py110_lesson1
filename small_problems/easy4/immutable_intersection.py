@@ -1,8 +1,10 @@
 def intersection(l1, l2):
-    frozenset1 = frozenset(l1)
-    frozenset2 = frozenset(l2)
+    # frozenset1 = frozenset(l1)
+    # frozenset2 = frozenset(l2)
 
-    return frozenset1.intersection(frozenset2)
+    # return frozenset1.intersection(frozenset2)
+
+    return frozenset(l1).intersection(frozenset(l2))
 
 list1 = [2, 4, 6, 8]
 list2 = [1, 3, 5, 7, 8]
