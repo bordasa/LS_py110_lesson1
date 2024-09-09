@@ -19,32 +19,32 @@ def minilang(string_command):
         if token[-1].isnumeric():
             register = int(token)
 
-        elif token.casefold() == 'push':
-            stack.append(register)
-        
-        elif token.casefold() == 'add':
-            register += stack.pop()
-        
-        elif token.casefold() == 'sub':
-            register -= stack.pop()
-        
-        elif token.casefold() == 'mult':
-            register *= stack.pop()
-        
-        elif token.casefold() == 'div':
-            register = register // stack.pop()
-        
-        elif token.casefold() == 'remainder':
-            register = register % stack.pop()
-        
-        elif token.casefold() == 'pop':
-            register = stack.pop()
-        
         elif token.casefold() == 'print':
             print(register)
-        
+
+        elif token.casefold() == 'push':
+            stack.append(register)
+
+        elif stack:
+            if token.casefold() == 'add':
+                register += stack.pop()
+            
+            elif token.casefold() == 'sub':
+                register -= stack.pop()
+            
+            elif token.casefold() == 'mult':
+                register *= stack.pop()
+            
+            elif token.casefold() == 'div':
+                register = register // stack.pop()
+            
+            elif token.casefold() == 'remainder':
+                register = register % stack.pop()
+            
+            elif token.casefold() == 'pop':
+                register = stack.pop()
         else:
-            print('Invalid token')
+            print('Error: Invalid token or Empty Stack')
 
 
 minilang('PRINT')
@@ -65,3 +65,4 @@ minilang('-3 PUSH 5 SUB PRINT')
 print()
 minilang('6 PUSH')
 print('done')
+minilang('add')
