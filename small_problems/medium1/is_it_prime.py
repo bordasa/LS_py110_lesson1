@@ -9,15 +9,16 @@
     #4. If no numbers divide in, return True
 
 #Code:
+import math
 
 def is_prime(number):
 
     if number == 1:
         return False
 
-    half_way_point = number // 2 + 1
+    number_square_root = int(math.sqrt(number)) + 1
 
-    for factor in range(2, half_way_point):
+    for factor in range(2, number_square_root):
         if number % factor == 0:
             return False
         
