@@ -32,10 +32,10 @@ def word_to_digit(message_string):
         
         new_list.append(word)
 
-    # new_list1 = [word_num_dict[word] for word in message_list if word in word_num_dict.keys() else word]
+    # new_list1 = [word_num_dict.get(word, word) for word in message_list]
     
     # print(new_list1)
-    #I'm not seeing why this doesn't work...
+
 
     return ' '.join(new_list)
     
