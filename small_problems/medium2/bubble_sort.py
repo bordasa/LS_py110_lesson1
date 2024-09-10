@@ -10,23 +10,23 @@
 
 #Code
 
-def bubble_sort(list):
+# def bubble_sort(list):
     
-    while True:
-        left = 0
-        right = 1
-        did_swap = False
+#     while True:
+#         left = 0
+#         right = 1
+#         did_swap = False
 
-        while right < len(list):
-            if list[left] > list[right]:
-                list[left], list[right] = list[right], list[left]
-                did_swap = True
+#         while right < len(list):
+#             if list[left] > list[right]:
+#                 list[left], list[right] = list[right], list[left]
+#                 did_swap = True
             
-            left += 1
-            right += 1
+#             left += 1
+#             right += 1
         
-        if did_swap == False:
-            break
+#         if did_swap == False:
+#             break
 
 def bubble_sort(lst):
 
