@@ -21,30 +21,55 @@
 
 #Code
 
+# def letter_percentages(string):
+#     lowercase = 0
+#     uppercase = 0
+    
+#     length = len(string)
+
+#     for char in string:
+#         if char.isalpha():
+#             if char == char.lower():
+#                 lowercase += 1
+#             else:
+#                 uppercase += 1
+
+#     lowercase /= length
+#     uppercase /= length
+#     neither = 1 - lowercase - uppercase
+
+#     result = {'lowercase': f'{round(lowercase * 100, 2):.2f}',
+#               'uppercase': f'{round(uppercase * 100, 2):.2f}',
+#               'neither': f'{round(neither * 100, 2):.2f}'
+#               }
+
+#     return result
+
+def convert_to_percentage_string(num):
+    return f"{num * 100 :.2f}"
+
 def letter_percentages(string):
     lowercase = 0
     uppercase = 0
-    
-    length = len(string)
+    neither = 0
 
     for char in string:
-        if char.isalpha():
-            if char == char.lower():
-                lowercase += 1
-            else:
-                uppercase += 1
-
-    lowercase /= length
-    uppercase /= length
-    neither = 1 - lowercase - uppercase
-
-    result = {'lowercase': f'{round(lowercase * 100, 2):.2f}',
-              'uppercase': f'{round(uppercase * 100, 2):.2f}',
-              'neither': f'{round(neither * 100, 2):.2f}'
-              }
-
-    return result
+        if char.isupper():
+            uppercase += 1
+        elif char.islower():
+            lowercase += 1
+        else:
+            neither += 1
     
+    percentages_dict = {
+        'lowercase': convert_to_percentage_string(lowercase/len(string)),
+        'uppercase': convert_to_percentage_string(uppercase/len(string)),
+        'neither': convert_to_percentage_string(neither/len(string))
+    }
+
+    return percentages_dict
+
+
 expected_result = {
     'lowercase': "50.00",
     'uppercase': "10.00",
