@@ -5,7 +5,7 @@ def binary_search(lst, item):
     left = 0
     right = len(lst) - 1
 
-    while left <= right: # not down to 1 element
+    while left <= right: # final iteration = 1 element left
         midpoint = (right + left) // 2
         guess = lst[midpoint]
 
@@ -16,7 +16,7 @@ def binary_search(lst, item):
         elif guess < item:
             left = midpoint + 1
 
-    return -1
+    return -1 #we got down to 1 element and it wasn't what we want
         
 # All of these examples should print True
 businesses = ['Apple Store', 'Bags Galore', 'Bike Store',
