@@ -21,7 +21,6 @@ def merge_sort(full_list):
     right_half = full_list[midpoint:]
 
     left_half = merge_sort(left_half)
-    
     right_half = merge_sort(right_half)
     
     return merge(left_half, right_half)
