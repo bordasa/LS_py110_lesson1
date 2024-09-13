@@ -8,8 +8,7 @@
 # print(append_to_list(0))
 
 '''
-In the above code, the function is not behaving as expected because of
-variable shadowing. The list is mutating and returning the list that is
+The list is mutating and returning the list that is
 set as the default argument. As a result, each time the function is called
 without a list argument, items are being added to the defualt argument.
 In order to fix this, I would return a new list that adds the new value
