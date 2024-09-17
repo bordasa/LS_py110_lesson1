@@ -1,5 +1,6 @@
 #Algorithm:
     #1. Create look up dictionary for num to str for individuual digits
+        #Using a list with the indices corresponding to digits is better
     #2. Get input number
     #3. Use divmod to divide by 10 and get the remainder at once as tuple
     #4. divmod[0] is the number without the right most digit.
